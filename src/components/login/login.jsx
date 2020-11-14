@@ -50,9 +50,6 @@ const Login = props => {
                         <Link to='/signup'>
                             <button>I am not registered</button>
                         </Link>
-                        <Link to='/main'>
-                            <button>Anonymous user</button>
-                        </Link>
                     </section>
                 </form>
             </div>

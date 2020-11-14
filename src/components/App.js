@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // components
 import Login from './Login/login';
-import Main from './Main/main';
-import Player from './Player/player';
+import Signup from './signup/signup';
+import Home from '../containers/homeContainer';
+import VideoDetail from '../containers/videoContainer';
 // error handler
 import ErrorCatch from '../errorCatch';
 
@@ -15,10 +16,12 @@ const App = () => {
                 <Switch>
                     <Route exact path='/' component={Login} />
                     <Route exact path='/signup' component={Signup} />
-                    <Route exact path='/main' component={Main} />
-                    <Route exact path={'/player/:videoId'} component={Player} />
+                    <Route exact path='/home' component={Home} />
+                    <Route exact path={'/:videoId'} component={VideoDetail} />
                 </Switch>
             </div>
         </Router>
     </ErrorCatch>
 }
+
+export default App;
