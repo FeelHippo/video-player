@@ -13,7 +13,13 @@ const LocalStorage = {
         return JSON.parse(session);
     },
     /**
-    * Token 
+    * Set Token 
+    */
+    setTokenStorage: token => {
+        localStorage.setItem('x-auth-token', token);
+    },
+    /**
+    * Read Token 
     */
     readTokenStorage: () => {
         const token = localStorage.getItem('x-auth-token');
