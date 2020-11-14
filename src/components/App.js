@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // components
-import Login from './Login/login';
+import Login from './login/login';
 import Signup from './signup/signup';
 import Home from '../containers/homeContainer';
 import VideoDetail from '../containers/videoContainer';
