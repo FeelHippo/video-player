@@ -48,11 +48,8 @@ const SignUp = props => {
                     </section>
                     <section>
                         <button type="submit">Register</button>
-                        <Link to='/login'>
+                        <Link to='/'>
                             <button>I have an account</button>
-                        </Link>
-                        <Link to='/main'>
-                            <button>Anonymous user</button>
                         </Link>
                     </section>
                 </form>
