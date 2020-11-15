@@ -3,6 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { userPostLogin, clearSnackbar } from '../../store/actions/authentication';
+import {PaperButton, PaperLayout, PaperCol, PaperForm, PaperInput, PaperSelect, PaperRadio, PaperCheckbox} from 'react-paper-css';
+import '../../style/global.css';
 
 // custom hook
 import { useInput } from '../hooks/input-hook';
@@ -38,17 +40,17 @@ const Login = props => {
 
     return (
         <> {redirectPage ? <Redirect to='/home' /> : null}
-            <div>
-                <form onSubmit={submitForm}>
-                    <h3>Login</h3>
-                    <section>
+            <div className="container">
+                <form onSubmit={submitForm} className="form form-group">
+                    <h3 className="title">Login</h3>
+                    <section className="inputs">
                         <input type="text" {...bindUsername} placeholder="Username" />
                         <input type="password" {...bindPassword} placeholder="Password" />
-                        <button type="submit">Access</button>
                     </section>
-                    <section>
+                    <section className="action">
+                    <button className="paper-btn btn-primary-outline" type="submit">Access</button>
                         <Link to='/signup'>
-                            <button>I am not registered</button>
+                            <button className="btn-success-outline">I am not registered</button>
                         </Link>
                     </section>
                 </form>

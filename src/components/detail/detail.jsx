@@ -8,19 +8,19 @@ const PrintDetail = ({
     authenticated,
     favorite
 }) => (
-    <div>
+    <div className="container detail">
         {
             video.id ? (
                 <>
                     <section>
-                        <h1>Enjoy this video by {video.user.name}</h1>
+                        <h1 className="title">Enjoy this video by {video.user.name}</h1>
                     </section>
                     <div class="video-container">
                         <iframe width="853" height="480" src={video.video_files[0].link} frameborder="0" allowfullscreen title="video-player"></iframe>
                     </div>
-                    <div>
-                        <Link to={`/`}>
-                            <button>Back to Home Page</button>
+                    <div className="video-input">
+                        <Link to={`/home`}>
+                            <button className="paper-btn btn-primary-outline">Back to Home Page</button>
                         </Link>
                         <div>
                             {

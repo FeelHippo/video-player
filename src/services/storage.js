@@ -29,6 +29,18 @@ const LocalStorage = {
         return JSON.parse(session) === videoID ? true : false;
     },
     /**
+    * get all user's favs
+    */
+    allUserFavorites: () => {
+        let allFavorites = [];
+        for (let [key, value] of Object.entries(localStorage)) {
+            if (key.split('-')[0] === 'favorite') {
+                allFavorites.push(value);
+            }
+        }
+        return allFavorites;
+    },
+    /**
     * Set Token 
     */
     setTokenStorage: token => {

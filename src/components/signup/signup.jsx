@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { userPostSignup, clearSnackbar } from '../../store/actions/authentication';
 import { useInput } from '../hooks/input-hook';
+import {PaperButton, PaperLayout, PaperCol, PaperForm, PaperInput, PaperSelect, PaperRadio, PaperCheckbox} from 'react-paper-css';
+import '../../style/global.css';
 
 const SignUp = props => {
     // state variables
@@ -38,18 +40,18 @@ const SignUp = props => {
 
     return (
         <>  { redirectPage ? <Redirect to='/' /> : null }
-            <div>
-                <form onSubmit={submitForm}>
-                    <h3>Sign Up</h3>
-                    <section>
+            <div className="container">
+                <form onSubmit={submitForm} className="form form-group">
+                    <h3 className="title">Sign Up</h3>
+                    <section className="inputs">
                         <input type="text" {...bindUsername} placeholder="choose your username" />
                         <input type="text" {...bindEmail} placeholder="... a password ..." />
                         <input type="password" {...bindPassword} placeholder="... and a password!" />
                     </section>
-                    <section>
-                        <button type="submit">Register</button>
+                    <section className="action">
+                        <button className="paper-btn btn-primary-outline" type="submit">Register</button>
                         <Link to='/'>
-                            <button>I have an account</button>
+                            <button className="btn-success-outline">I have an account</button>
                         </Link>
                     </section>
                 </form>
