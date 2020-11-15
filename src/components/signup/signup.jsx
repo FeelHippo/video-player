@@ -37,7 +37,7 @@ const SignUp = props => {
     };
 
     return (
-        <>  { redirectPage ? <Redirect to='/login' /> : null }
+        <>  { redirectPage ? <Redirect to='/' /> : null }
             <div>
                 <form onSubmit={submitForm}>
                     <h3>Sign Up</h3>

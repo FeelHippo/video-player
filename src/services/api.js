@@ -1,6 +1,7 @@
 import axios from 'axios';
+const video_api_key = '563492ad6f91700001000001b264bbb360394d69be63de59447d1d56';
 
-const api = (API_URL = `http://localhost:5000`) => {
+const api = (API_URL = `http://localhost:5000`, VIDEO_API = `https://api.pexels.com/videos`) => {
     return {
         registerUser: async ({ username, email, password }) => {
             const API_END = `${API_URL}/user/register`;
@@ -48,7 +49,7 @@ const api = (API_URL = `http://localhost:5000`) => {
             }
         },
         tokenAuthentication: async token => {
-            const URL_END = `${API_URL}/tokenIsValid`;
+            const API_END = `${API_URL}/tokenIsValid`;
 
             try {
                 let response = await axios.post(
@@ -64,6 +65,59 @@ const api = (API_URL = `http://localhost:5000`) => {
             } catch (error) {
                 console.error(error);
             }
+        },
+        getInitialVideos: async () => {
+            const API_END = `${VIDEO_API}/popular?per_page=15`;
+
+            try {
+                let response = await axios.get(
+                    API_END, 
+                    {
+                        headers: {
+                          authorization: video_api_key
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        getSearchVideos: async params => {
+            const API_END = `${VIDEO_API}/search${params}`;
+
+            try {
+                let response = await axios.get(
+                    API_END,
+                    {
+                        headers: {
+                            authorization: video_api_key
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        getVideo: async id => {
+            const API_END = `${VIDEO_API}/videos/${id}`;
+
+            try {
+                let response = await axios.get(
+                    API_END,
+                    {
+                        headers: {
+                            authorization: video_api_key
+                        }
+                    }
+                )
+                return response.data;
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }
+
+export default api;

@@ -7,7 +7,7 @@ import { createBrowserHistory } from 'history';
 import LocalStorage from './services/storage';
 import api from './services/api';
 import { configureStore } from './store/config.js';
-import { home, auth } from './store/types/types';
+import { auth } from './store/types/types';
 
 // render function
 const renderApp = props =>

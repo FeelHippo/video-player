@@ -58,7 +58,8 @@ const Home = ({
                                     (
                                         <div>{errors.locale}</div>
                                     ) : null
-                            }   
+                            }
+                            <button type="submit">search</button>   
                         </Form>
                     )
                 }
@@ -66,23 +67,23 @@ const Home = ({
         </div>
         <div>
             {
-                videos.length ? (
+                videos && videos.length ? (
                     <ul>
                         {
                             videos.map(video => (
-                                <div class="row">
-                                    <div class="col s12 m7">
-                                    <div class="card">
-                                        <div class="card-image">
-                                            <img src={video.image} />
-                                            <span class="card-title">Card Title</span>
+                                <div className="row" key={video.id}>
+                                    <div className="col s12 m7">
+                                    <div className="card small">
+                                        <div className="card-image">
+                                            <img src={video.image} alt="thumbnail" />
+                                            <span className="card-title">Card Title</span>
                                         </div>
-                                        <div class="card-content">
-                                            <p>Courtesy of: {video.user.name} // follow him: {video.user.url}</p>
+                                        <div className="card-content">
+                                            <p>Courtesy of: {video.user.name} - follow him: {video.user.url}</p>
                                         </div>
-                                        <div class="card-action">
+                                        <div className="card-action">
                                             <Link to={`/${video.id}`}>
-                                                <a href="#">Watch this video</a>
+                                                <button>Watch this video</button>
                                             </Link>
                                         </div>
                                     </div>
@@ -91,8 +92,10 @@ const Home = ({
                             ))
                         }
                     </ul>
-                )
+                ) : (null)
             }
         </div>
     </div>
 )
+
+export default Home;

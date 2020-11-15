@@ -13,6 +13,22 @@ const LocalStorage = {
         return JSON.parse(session);
     },
     /**
+    * Save or delete favorite to local storage
+    */
+    saveFavoriteStorage: videoID => {
+        localStorage.setItem(`favorite-${videoID}`, JSON.stringify(videoID));
+    },
+    eraseFavoriteStorage: videoID => {
+        localStorage.removeItem(`favorite-${videoID}`);
+    },
+    /**
+    * Retrieve favorite from local storage 
+    */
+    readFavoriteStorage: videoID => {
+        const session = localStorage.getItem(`favorite-${videoID}`);
+        return JSON.parse(session) === videoID ? true : false;
+    },
+    /**
     * Set Token 
     */
     setTokenStorage: token => {

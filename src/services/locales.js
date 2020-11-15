@@ -1,4 +1,4 @@
-export default locales = [
+const locales = [
     'en-US', 
     'pt-BR', 
     'es-ES', 
@@ -28,3 +28,5 @@ export default locales = [
     'tr-TR', 
     'ru-RU',
 ]
+
+export default locales;

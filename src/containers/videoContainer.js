@@ -4,7 +4,12 @@ import {
     getOneVideo
 } from '../store/actions/index';
 import LocalStorage from '../services/storage';
-import PrintDetail from '../components/detail';
+import PrintDetail from '../components/detail/detail';
+const {
+    saveFavoriteStorage,
+    eraseFavoriteStorage,
+    readFavoriteStorage,
+} = LocalStorage;
 
 export class VideoDetail extends Component {
     constructor(props) {
@@ -24,34 +29,25 @@ export class VideoDetail extends Component {
         const storeToken = this.props.session.token;
 
         let authenticated = storageToken === storeToken;
-        this.setState({ authenticated });
-    }
 
-    componentDidUpdate(prevProps) {
-        // fix this
-        if (prevProps.videos.favorite !== this.props.videos.favorite) {
-            this.setFavorite();
-        }
+        let isFavorite = readFavoriteStorage(params.id);
+
+        this.setState({ authenticated, favorite: isFavorite });
     }
 
     getDetails = detId => {
         this.props.getOneVideo(detId);
     }
 
-    setFavorite = () => {
-        // fix this
-        let isFavorite = this.props.videos.favorite.some(user => this.props.session.username === user);
-        this.setState({ favorite: isFavorite });
-    }
-
     toggleFavorite = () => {
+        const {match: {params}} = this.props;
         if (!this.state.favorite) {
-            // change favorite status for this video to true
+            saveFavoriteStorage(params.id);
         } else {
-            // change favorite status for this video to true 
+            eraseFavoriteStorage(params.id);
         }
         this.setState({
-            favorite: !this.state.favorite;
+            favorite: !this.state.favorite
         })
     }
 
@@ -59,7 +55,6 @@ export class VideoDetail extends Component {
         return (
             <PrintDetail 
                 video={this.props.videos}
-                _id={this.props.match.params.detId}
                 authenticated={this.state.authenticated}
                 markFavorite={this.toggleFavorite}
                 favorite={this.state.favorite}

@@ -9,7 +9,7 @@ import VideoDetail from '../containers/videoContainer';
 // error handler
 import ErrorCatch from '../errorCatch';
 
-const App = () => {
+const App = () => (
     <ErrorCatch>
         <Router>
             <div>
@@ -17,11 +17,11 @@ const App = () => {
                     <Route exact path='/' component={Login} />
                     <Route exact path='/signup' component={Signup} />
                     <Route exact path='/home' component={Home} />
-                    <Route exact path={'/:videoId'} component={VideoDetail} />
+                    <Route path={'/:id'} component={VideoDetail} />
                 </Switch>
             </div>
         </Router>
     </ErrorCatch>
-}
+)
 
 export default App;
