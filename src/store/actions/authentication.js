@@ -15,9 +15,10 @@ export const userPostLogin = user => {
                 return true;
             } else {
                 dispatch(showSnackbar(response.data.msg))
+                return false;
             }
         } catch (error) {
-            console.log(error);
+            dispatch(showSnackbar(error));
         }
     }
 }
@@ -29,14 +30,18 @@ const loginAuthUser = userObj => ({
 
 export const userPostSignup = user => {
     return async dispatch => {
+        let response = await registerUser(user);
         try {
-            let response = await registerUser(user);
-            if (response.status === 200) {
+            if (response.data.success === true) {
                 dispatch(signupUser(response.data.success));
+                dispatch(showSnackbar('You are now registered!'))
                 return true;
+            } else if (response.data.success === false) {
+                dispatch(showSnackbar(response.data.msg))
+                return false;
             }
         } catch (error) {
-            dispatch(showSnackbar(response.data.msg));
+            dispatch(showSnackbar(error));
         }
     }
 }
@@ -55,4 +60,8 @@ export const logoutUser = () => {
 const showSnackbar = message => ({
     type: shared.SNACKBAR_SUCCESS,
     message,
+})
+
+export const clearSnackbar = () => ({
+    type: shared.SNACKBAR_CLEAR,
 })

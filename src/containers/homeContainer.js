@@ -8,7 +8,7 @@ import {
     clearSnackbar,
 } from '../store/actions/index.js';
 
-import Home from '../components/home';
+import Home from '../components/home/home';
 
 export class VideoHome extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export class VideoHome extends Component {
     }
 
     componentDidMount() {
-        this.props.getDefaultVideos();
+        this.props.getPopularVideos();
         // snackbar errors
         if (this.props.snackbar.message) {
             this.props.enqueueSnackbar(this.props.snackbar.message);
@@ -28,7 +28,7 @@ export class VideoHome extends Component {
     }
 
     searchVideos = async values => {
-        let response = await this.props.searchVideos(values);
+        let response = await this.props.searchCustomVideos(values);
         if (response.msg) {
             this.props.enqueueSnackbar(response.msg);
             this.props.clearSnackbar();
@@ -41,7 +41,7 @@ export class VideoHome extends Component {
         }
         return (
             <Home 
-                videos={this.props.ads}
+                videos={this.props.videos}
                 searchVideos={this.searchVideos}
             />
         )
@@ -58,8 +58,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        searchVideos: params => dispatch(searchVideos(params)),
-        getDefaultVideos: () => dispatch(getDefaultVideos()),
+        searchCustomVideos: params => dispatch(searchVideos(params)),
+        getPopularVideos: () => dispatch(getDefaultVideos()),
         clearSnackbar: () => dispatch(clearSnackbar()),
     }
 }

@@ -1,32 +1,35 @@
-import { home, details, shared } from '../types/types';
-import { store } from '../../index';
+import { home, shared } from '../types/types';
 import api from '../../services/api';
 
 const {
-    getVideos,
+    getSearchVideos,
     getVideo,
     getInitialVideos,
     registeredUser,
 } = api();
 
 const showSnackbar = message => ({
+    type: shared.SNACKBAR_CLEAR,
+    message,
+})
+
+export const clearSnackbar = () => {
     return dispatch => {
         dispatch({
             type: shared.SNACKBAR_CLEAR,
         })
     }
-})
+}
 
 export const searchVideos = ({
     query, locale, per_page
 }) => {
     return async dispatch => {
         try {
-            // fix this
-            let API_ARGS = `?...`;
-            let results = await getVideos(API_ARGS);
+            let API_ARGS = `?query=${query}&locale=${locale}per_page=${per_page}`;
+            let results = await getSearchVideos(API_ARGS);
             if (!results.msg) {
-                dispatch(fetchVideos(results))
+                dispatch(fetchVideos(results.videos))
             }
             return results;
         } catch (error) {
@@ -39,7 +42,9 @@ export const searchVideos = ({
 export const getDefaultVideos = () => {
     return async dispatch => {
         try {
-            await getInitialVideos().then(videos => dispatch(fetchVideos(videos)))
+            const videos = await getInitialVideos();
+            dispatch(fetchVideos(videos.videos));
+            return true;
         } catch (error) {
             console.log(error)
         }
@@ -49,13 +54,9 @@ export const getDefaultVideos = () => {
 export const getOneVideo = videoID => {
     return async dispatch => {
         try {
-            await getVideo(videoID).then(result => {
-                let videoDetails = {
-                    _id: videoID,
-                    // fix this with API data json
-                }
-                dispatch(fetchVideos(videoDetails));
-            })
+            const result = await getVideo(videoID);
+            dispatch(fetchVideos(result));
+            return true;
         } catch (error) {
             console.log(error)
         }
