@@ -1,0 +1,87 @@
+/* Login and Signup forms */
+.container {
+  position: relative;
+  z-index:1;
+  overflow:hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container:before{
+  z-index:-1;
+  position:absolute;
+  left:0;
+  top:0;
+  content: url('../media/pexels-iconcom-220634.jpg');
+  opacity:0.4;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+} 
+
+.inputs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.inputs > * {
+  margin-top: 1rem;
+}
+
+.action {
+  margin-top: 1rem;
+}
+
+/* Home container */
+.search-nav {
+  width: 100vw;
+  height: auto;
+  position: fixed;
+  top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.favorite-list, popular-list {
+  width: 100vw;
+  height: auto;
+}
+
+.favorite-list-ul, popular-list-ul {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+/* detail component */
+.detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.video-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

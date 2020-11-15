@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
+import Home from '../components/home/home';
 import {
     getDefaultVideos,
     searchVideos,
     clearSnackbar,
 } from '../store/actions/index.js';
-
-import Home from '../components/home/home';
+import LocalStorage from '../services/storage';
+const { allUserFavorites } = LocalStorage;
 
 export class VideoHome extends Component {
     constructor(props) {
         super();
         this.state = {
             redirect: false,
+            allFavorites: [],
         }
     }
 
-    componentDidMount() {
-        this.props.getPopularVideos();
+    async componentDidMount() {
+        await this.props.getPopularVideos();
         // snackbar errors
         if (this.props.snackbar.message) {
             this.props.enqueueSnackbar(this.props.snackbar.message);
             this.props.clearSnackbar();
         }
+        await this.userFavorites();
     }
 
     searchVideos = async values => {
@@ -35,6 +38,17 @@ export class VideoHome extends Component {
         }
     }
 
+    userFavorites = async () => {
+        const localStored = await allUserFavorites();
+        const allFavorites = this.props.videos.filter(video => {
+            return localStored.some(stored => parseInt(stored) === video.id)
+        })
+        console.log('favorites', allFavorites)
+        this.setState({
+            allFavorites
+        })
+    }
+
     render() {
         if (this.state.redirect) {
             return <Redirect to={`/${this.state.userSearch}`} />
@@ -43,6 +57,7 @@ export class VideoHome extends Component {
             <Home 
                 videos={this.props.videos}
                 searchVideos={this.searchVideos}
+                favoriteVideos={this.state.allFavorites}
             />
         )
     }
