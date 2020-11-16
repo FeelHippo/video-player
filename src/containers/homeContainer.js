@@ -41,9 +41,10 @@ export class VideoHome extends Component {
     userFavorites = async () => {
         const localStored = await allUserFavorites();
         const allFavorites = this.props.videos.filter(video => {
-            return localStored.some(stored => parseInt(stored) === video.id)
+            return localStored.some(stored => {
+                return parseInt(JSON.parse(stored)) === video.id
+            })
         })
-        console.log('favorites', allFavorites)
         this.setState({
             allFavorites
         })
