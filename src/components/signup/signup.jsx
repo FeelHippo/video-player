@@ -45,7 +45,7 @@ const SignUp = props => {
                     <h3 className="title">Sign Up</h3>
                     <section className="inputs">
                         <input type="text" {...bindUsername} placeholder="choose your username" />
-                        <input type="text" {...bindEmail} placeholder="... a password ..." />
+                        <input type="email" {...bindEmail} placeholder="... an email ..." />
                         <input type="password" {...bindPassword} placeholder="... and a password!" />
                     </section>
                     <section className="action">

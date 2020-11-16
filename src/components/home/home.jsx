@@ -81,7 +81,6 @@ const Home = ({
                                         <div className="card small">
                                             <div className="card-image">
                                                 <img src={video.image} alt="thumbnail" />
-                                                <span className="card-title">Card Title</span>
                                             </div>
                                             <div className="card-content">
                                                 <p>Courtesy of: {video.user.name} - follow him: {video.user.url}</p>
@@ -113,7 +112,6 @@ const Home = ({
                                     <div className="card small">
                                         <div className="card-image">
                                             <img src={video.image} alt="thumbnail" />
-                                            <span className="card-title">Card Title</span>
                                         </div>
                                         <div className="card-content">
                                             <p>Courtesy of: {video.user.name} - follow him: {video.user.url}</p>
