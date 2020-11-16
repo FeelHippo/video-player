@@ -18,7 +18,7 @@ const Home = ({
     favoriteVideos,
 }) => (
     <div className="container">
-        <div>
+        <div className="nav-list">
             <Formik 
                 initialValues={{
                     query: '',
@@ -71,12 +71,12 @@ const Home = ({
         <div className="favorite-list">
             {
                 favoriteVideos.length ? (
-                    <section>
-                        <div className="title">Your Favorites!</div>
+                    <section className="list-container">
+                        <div className="title animate__animated animate__tada">Your Favorites!</div>
                         <ul className="favorite-list-ul">
                             {
                                 favoriteVideos.map(video => (
-                                    <div className="row" key={video.id}>
+                                    <div className="row video-card" key={video.id}>
                                         <div className="col s12 m7">
                                         <div className="card small">
                                             <div className="card-image">
@@ -102,12 +102,13 @@ const Home = ({
             }
         </div>
         <div className="popular-list">
+        <div className="title animate__animated animate__tada">Most Popular Videos!</div>
             {
                 videos && videos.length ? (
                     <ul className="popular-list-ul">
                         {
                             videos.map(video => (
-                                <div className="row" key={video.id}>
+                                <div className="row video-card" key={video.id}>
                                     <div className="col s12 m7">
                                     <div className="card small">
                                         <div className="card-image">
