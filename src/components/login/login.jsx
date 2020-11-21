@@ -28,10 +28,8 @@ const Login = props => {
     const submitForm = evt => {
         evt.preventDefault();
 
-        props.userPostLogin({
-            username,
-            password,
-        }).then(response => {
+        props.userPostLogin().then(response => {
+            console.log('COMPONENT RES ', response)
             if (response) {
                 setRedirect(true);
             }
@@ -49,9 +47,6 @@ const Login = props => {
                     </section>
                     <section className="action">
                     <button className="paper-btn btn-primary-outline" type="submit">Access</button>
-                        <Link to='/signup'>
-                            <button className="btn-success-outline">I am not registered</button>
-                        </Link>
                     </section>
                 </form>
             </div>

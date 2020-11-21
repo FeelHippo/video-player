@@ -39,11 +39,11 @@ export const searchVideos = ({
     }
 }
 
-export const getDefaultVideos = () => {
+export const getDefaultVideos = token => {
     return async dispatch => {
         try {
-            const videos = await getInitialVideos();
-            dispatch(fetchVideos(videos.videos));
+            const videos = await getInitialVideos(token);
+            dispatch(fetchVideos(videos));
             return true;
         } catch (error) {
             console.log(error)
@@ -51,10 +51,10 @@ export const getDefaultVideos = () => {
     }
 }
 
-export const getOneVideo = videoID => {
+export const getOneVideo = (videoID, token) => {
     return async dispatch => {
         try {
-            const result = await getVideo(videoID);
+            const result = await getVideo(videoID, token);
             dispatch(fetchVideos(result));
             return true;
         } catch (error) {

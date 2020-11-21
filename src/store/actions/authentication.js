@@ -1,20 +1,17 @@
 import api from '../../services/api';
 import { auth, shared } from '../types/types';
 import LocalStorage from '../../services/storage';
-const { registerUser, loginUser, tokenAuthentication } = api();
+const { defaultUser, registerUser, loginUser, tokenAuthentication } = api();
 
-export const userPostLogin = user => {
+export const userPostLogin = () => {
     return async dispatch => {
         try {
-            let response = await loginUser(user);
-            let token = response.data.token;
-            let authenticated = await tokenAuthentication(token);
-            if (authenticated && response.status === 200) {
-                LocalStorage.setTokenStorage(token);
-                dispatch(loginAuthUser(response.data));
+            let response = await defaultUser();
+            if (response.authorized) {
+                dispatch(loginAuthUser(response));
                 return true;
             } else {
-                dispatch(showSnackbar(response.data.msg))
+                dispatch(showSnackbar(response.message))
                 return false;
             }
         } catch (error) {

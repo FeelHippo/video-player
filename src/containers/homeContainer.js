@@ -21,7 +21,7 @@ export class VideoHome extends Component {
     }
 
     async componentDidMount() {
-        await this.props.getPopularVideos();
+        await this.props.getPopularVideos(this.props.session.token);
         // snackbar errors
         if (this.props.snackbar.message) {
             this.props.enqueueSnackbar(this.props.snackbar.message);
@@ -30,21 +30,11 @@ export class VideoHome extends Component {
         await this.userFavorites();
     }
 
-    searchVideos = async values => {
-        let response = await this.props.searchCustomVideos(values);
-        if (response.msg) {
-            this.props.enqueueSnackbar(response.msg);
-            this.props.clearSnackbar();
-        }
-    }
-
     userFavorites = async () => {
         const localStored = await allUserFavorites();
-        const allFavorites = this.props.videos.filter(video => {
-            return localStored.some(stored => {
-                return parseInt(JSON.parse(stored)) === video.id
-            })
-        })
+        const allFavorites = this.props.videos.contents.filter(video => {
+            return localStored.indexOf(JSON.stringify(video.id)) > 0;
+        });
         this.setState({
             allFavorites
         })
@@ -56,7 +46,7 @@ export class VideoHome extends Component {
         }
         return (
             <Home 
-                videos={this.props.videos}
+                videos={this.props.videos.contents}
                 searchVideos={this.searchVideos}
                 favoriteVideos={this.state.allFavorites}
             />
@@ -66,6 +56,7 @@ export class VideoHome extends Component {
 
 const mapStateToProps = state => {
     return {
+        session: state.session,
         videos: state.videos,
         redirect: state.redirect,
         snackbar: state.snackbar,
@@ -75,7 +66,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         searchCustomVideos: params => dispatch(searchVideos(params)),
-        getPopularVideos: () => dispatch(getDefaultVideos()),
+        getPopularVideos: token => dispatch(getDefaultVideos(token)),
         clearSnackbar: () => dispatch(clearSnackbar()),
     }
 }

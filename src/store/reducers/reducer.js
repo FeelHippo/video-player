@@ -4,8 +4,13 @@ import { home, details, auth, shared } from '../types/types';
 import Session from '../../models/session';
 
 const defaultState = {
-    session: new Session(),
-    videos: [],
+    session: {
+        authorized: new Boolean,
+        error: new Boolean,
+        message: new String,
+        token: new String,
+    },
+    videos: {},
     snackbar: {},
 }
 
@@ -14,22 +19,10 @@ export const form = formReducer;
 
 export const session = (state = defaultState.session, action) => {
     switch (action.type) {
-        case auth.SIGNUP_USER:
-            return {
-                ...state,
-                success: action.payload,
-            }
-        
         case auth.LOGIN_USER:
             return {
                 ...state,
                 ...action.payload,
-            }
-
-        case auth.LOGOUT_USER:
-            return {
-                ...state,
-                ...new Session(),
             }
 
         default:

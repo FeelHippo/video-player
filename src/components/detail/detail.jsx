@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
+import ReactHlsPlayer from 'react-hls-player';
 
 const PrintDetail = ({
     video,
@@ -13,7 +14,13 @@ const PrintDetail = ({
             video.id ? (
                 <>
                     <div class="video-container">
-                        <iframe width="853" height="480" src={video.video_files[0].link} frameborder="0" allowfullscreen title="video-player"></iframe>
+                        <ReactHlsPlayer
+                            url={ video.url }
+                            autoplay={false}
+                            controls={true}
+                            width="100%"
+                            height="auto"
+                    />
                     </div>
                     <div className="video-input">
                         <Link to={`/home`}>

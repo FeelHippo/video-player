@@ -15,7 +15,6 @@ export class VideoDetail extends Component {
     constructor(props) {
         super();
         this.state = {
-            authenticated: false,
             favorite: false,
         }
     }
@@ -24,19 +23,14 @@ export class VideoDetail extends Component {
         // fetch data from the API
         const {match: {params}} = this.props;
         this.getDetails(params.id);
-        // authentication check
-        const storageToken = LocalStorage.readTokenStorage();
-        const storeToken = this.props.session.token;
-
-        let authenticated = storageToken === storeToken;
 
         let isFavorite = readFavoriteStorage(params.id);
 
-        this.setState({ authenticated, favorite: isFavorite });
+        this.setState({ favorite: isFavorite });
     }
 
     getDetails = detId => {
-        this.props.getOneVideo(detId);
+        this.props.getOneVideo(detId, this.props.session.token);
     }
 
     toggleFavorite = () => {
@@ -55,7 +49,7 @@ export class VideoDetail extends Component {
         return (
             <PrintDetail 
                 video={this.props.videos}
-                authenticated={this.state.authenticated}
+                authenticated={this.props.session.authorized}
                 markFavorite={this.toggleFavorite}
                 favorite={this.state.favorite}
             />
@@ -72,7 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getOneVideo: id => dispatch(getOneVideo(id))
+        getOneVideo: (id, token) => dispatch(getOneVideo(id, token))
     }
 }
 

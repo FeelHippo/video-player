@@ -18,56 +18,6 @@ const Home = ({
     favoriteVideos,
 }) => (
     <div className="container">
-        <div className="nav-list">
-            <Formik 
-                initialValues={{
-                    query: '',
-                    locale: 'en-US',
-                    per_page: 20,
-                }}
-                validationSchema={ searchSchema }
-                enableReinitialize={ true }
-                onSubmit={
-                    values => {
-                        searchVideos(values);
-                    }
-                }
-            >
-                {
-                    ({
-                        values, errors, touched, setFieldValue
-                    }) => (
-                        <Form className="search-nav">
-                            <Field name='query' placeholder='search our archive' />
-                            {/* {
-                                errors.query && touched.query ?
-                                    (
-                                        <div>{errors.query}</div>
-                                    ) : null
-                            } */}
-                            <Field name="locale" as="select" id="locale">
-                                <option value="" key="default">Select your language</option>
-                                {locales && locales.length ? (
-                                    locales.map((tag, i) => {
-                                        return ( <option value={tag} key={i}>{tag}</option> )
-                                    })
-                                ) : (
-                                    ''
-                                )
-                                }
-                            </Field>
-                            {
-                                errors.locale && touched.locale ?
-                                    (
-                                        <div>{errors.locale}</div>
-                                    ) : null
-                            }
-                            <button className="btn-success-outline" type="submit">search</button>   
-                        </Form>
-                    )
-                }
-            </Formik>
-        </div>
         <div className="favorite-list">
             {
                 favoriteVideos.length ? (
@@ -80,10 +30,10 @@ const Home = ({
                                         <div className="col s12 m7">
                                         <div className="card small">
                                             <div className="card-image">
-                                                <img src={video.image} alt="thumbnail" />
+                                                <img src={video.cover} alt="thumbnail" />
                                             </div>
                                             <div className="card-content">
-                                                <p>Courtesy of: {video.user.name} - follow him: {video.user.url}</p>
+                                                {video.title}
                                             </div>
                                             <div className="card-action">
                                                 <Link to={`/${video.id}`}>
@@ -111,10 +61,10 @@ const Home = ({
                                     <div className="col s12 m7">
                                     <div className="card small">
                                         <div className="card-image">
-                                            <img src={video.image} alt="thumbnail" />
+                                            <img src={video.cover} alt="thumbnail" />
                                         </div>
                                         <div className="card-content">
-                                            <p>Courtesy of: {video.user.name} - follow him: {video.user.url}</p>
+                                            <p>{video.title}</p>
                                         </div>
                                         <div className="card-action">
                                             <Link to={`/${video.id}`}>
